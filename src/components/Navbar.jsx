@@ -1,110 +1,147 @@
-import { useEffect, useRef } from 'react'
-import  darkImg from "../assets/close-black.png"
-import  lightImg from "../assets/close-white.png"
-import  darkImg1 from "../assets/hamburgerdark.png"
-import  lightImg2 from "../assets/hamburgerlight.png"
-import  img1 from "../assets/header-bg-color.png"
-import  img2 from "../assets/moon_icon.png"
-import  img3 from "../assets/sun_icon.png"
-import  img4 from "../assets/arrow-icon.png"
-import  img5 from "../assets/arrow-icon-dark.png"
+import { useEffect, useRef, useState } from "react";
+
+import darkImg from "../assets/close-black.png";
+import lightImg from "../assets/close-white.png";
+import darkImg1 from "../assets/hamburgerdark.png";
+import lightImg2 from "../assets/hamburgerlight.png";
+import img2 from "../assets/moon_icon.png";
+import img3 from "../assets/sun_icon.png";
+import img4 from "../assets/arrow-icon.png";
+import img5 from "../assets/arrow-icon-dark.png";
+
 export default function Navbar() {
-    const sideMenuRef = useRef();
+
     const navRef = useRef();
-    const navLinkRef = useRef();
+    const sideMenuRef = useRef();
 
-    const openMenu = () => {
-        sideMenuRef.current.style.transform = 'translateX(-16rem)';
-    }
-    const closeMenu = () => {
-        sideMenuRef.current.style.transform = 'translateX(16rem)';
-    }
-    const toggleTheme = () => {
+    const [menuOpen, setMenuOpen] = useState(false);
 
-        document.documentElement.classList.toggle('dark');
-
-        if (document.documentElement.classList.contains('dark')) {
-            localStorage.theme = 'dark';
-        } else {
-            localStorage.theme = 'light';
-        }
-    }
+    /* ---------- Sidebar Control ---------- */
 
     useEffect(() => {
 
-        window.addEventListener('scroll', () => {
-            if (scrollY > 50) {
-                navRef.current.classList.add('bg-white', 'bg-opacity-50', 'backdrop-blur-lg', 'shadow-sm', 'dark:bg-darkTheme', 'dark:shadow-white/20');
-                navLinkRef.current.classList.remove('bg-white', 'shadow-sm', 'bg-opacity-50', 'dark:border', 'dark:border-white/30', "dark:bg-transparent");
-            } else {
-                navRef.current.classList.remove('bg-white', 'bg-opacity-50', 'backdrop-blur-lg', 'shadow-sm', 'dark:bg-darkTheme', 'dark:shadow-white/20');
-                navLinkRef.current.classList.add('bg-white', 'shadow-sm', 'bg-opacity-50', 'dark:border', 'dark:border-white/30', "dark:bg-transparent");
-            }
-        })
-
-        // -------- light mode and dark mode -----------
-
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
+        if (sideMenuRef.current) {
+            sideMenuRef.current.style.transform =
+                menuOpen ? "translateX(0)" : "translateX(100%)";
         }
-    }, [])
+
+        document.body.style.overflow = menuOpen ? "hidden" : "auto";
+
+    }, [menuOpen]);
+
+    /* ---------- Scroll Navbar Effect ---------- */
+
+    useEffect(() => {
+
+        const handleScroll = () => {
+
+            if (window.scrollY > 40) {
+                navRef.current?.classList.add(
+                    "bg-white",
+                    "bg-opacity-60",
+                    "backdrop-blur-lg",
+                    "shadow-md",
+                    "dark:bg-darkTheme"
+                );
+            } else {
+                navRef.current?.classList.remove(
+                    "bg-white",
+                    "bg-opacity-60",
+                    "backdrop-blur-lg",
+                    "shadow-md",
+                    "dark:bg-darkTheme"
+                );
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+
+    }, []);
+
+    /* ---------- Theme Toggle ---------- */
+
+    const toggleTheme = () => {
+
+        document.documentElement.classList.toggle("dark");
+
+        localStorage.theme =
+            document.documentElement.classList.contains("dark")
+                ? "dark"
+                : "light";
+    };
 
     return (
-        <>
-            <div className="fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%] dark:hidden">
-                <img src={img1} alt="" className="w-full" />
-            </div>
+        <nav
+            ref={navRef}
+            className="fixed top-0 left-0 w-full z-50 px-5 xl:px-[8%] py-4 flex items-center justify-between transition-all duration-300"
+        >
 
-            <nav ref={navRef} className="w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50">
+            {/* Logo */}
+            <h1 className="text-[40px] cursor-pointer dark:hidden">
+                Ankul Verma
+            </h1>
 
-                <a href="#!">
-                    <h1 className="cursor-pointer mr-14 dark:hidden " style={{fontSize:"40px"}}>Ankul Verma</h1>
-                    <h1 className=" cursor-pointer mr-14 hidden dark:block"style={{fontSize:"40px"}} >Ankul Verma </h1>
+            <h1 className="text-[40px] cursor-pointer hidden dark:block">
+                Ankul Verma
+            </h1>
+
+            {/* Desktop Menu (1280+) */}
+            <ul className="hidden xl:flex items-center gap-8 px-12 py-3 rounded-full bg-white bg-opacity-50 shadow-sm dark:border dark:border-white/30 dark:bg-transparent">
+
+                <li><a href="#top">Home</a></li>
+                <li><a href="#about">About me</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#work">My Work</a></li>
+                <li><a href="#contact">Contact</a></li>
+
+            </ul>
+
+            {/* Right Side Buttons */}
+            <div className="flex items-center gap-4">
+
+                <button onClick={toggleTheme}>
+                    <img src={img2} className="w-5 dark:hidden" />
+                    <img src={img3} className="w-5 hidden dark:block" />
+                </button>
+
+                <a href="#contact"
+                    className="hidden xl:flex items-center gap-3 px-8 py-1.5 border rounded-full hover:bg-slate-100/70 dark:hover:bg-darkHover dark:border-white/30 transition">
+                    Contact
+                    <img src={img4} className="w-3 dark:hidden" />
+                    <img src={img5} className="w-3 hidden dark:block" />
                 </a>
 
-                <ul ref={navLinkRef} className="hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 bg-white shadow-sm bg-opacity-50 font-Ovo dark:border dark:border-white/30 dark:bg-transparent ">
-                    <li><a className='hover:text-gray-500 dark:hover:text-gray-300 transition' href="#top">Home</a></li>
-                    <li><a className='hover:text-gray-500 dark:hover:text-gray-300 transition' href="#about">About me</a></li>
-                    <li><a className='hover:text-gray-500 dark:hover:text-gray-300 transition' href="#services">Services</a></li>
-                    <li><a className='hover:text-gray-500 dark:hover:text-gray-300 transition' href="#work">My Work</a></li>
-                    <li><a className='hover:text-gray-500 dark:hover:text-gray-300 transition' href="#contact">Contact me</a></li>
-                </ul>
+                {/* Mobile Hamburger */}
+                <button
+                    className="block xl:hidden"
+                    onClick={() => setMenuOpen(true)}
+                >
+                    <img src={darkImg1} className="w-6 dark:hidden" />
+                    <img src={lightImg2} className="w-6 hidden dark:block" />
+                </button>
 
-                <div className="flex items-center gap-4">
-                    <button onClick={toggleTheme}>
-                        <img src={img2} alt="" className="w-5 dark:hidden" />
-                        <img src={img3} alt="" className="w-5 hidden dark:block" />
-                    </button>
+            </div>
 
-                    <a href="#contact" className="hidden lg:flex items-center gap-3 px-8 py-1.5 border border-gray-300 hover:bg-slate-100/70 dark:hover:bg-darkHover rounded-full ml-4 font-Ovo dark:border-white/30">
-                        Contact
-                        <img src={img4} alt="" className="w-3 dark:hidden" />
-                        <img src= {img5} alt="" className="w-3 hidden dark:block" />
-                    </a>
+            {/* Sidebar Menu */}
+            <div
+                ref={sideMenuRef}
+                className="fixed top-0 right-0 h-screen w-72 md:w-64 bg-rose-50 dark:bg-darkHover dark:text-white flex flex-col gap-6 py-20 px-10 transition-transform duration-500 translate-x-full"
+            >
 
-                    <button className="block md:hidden ml-3" onClick={openMenu}>
-                        <img src={darkImg1} alt="" className="w-6 dark:hidden" />
-                        <img src={lightImg2} alt="" className="w-6 hidden dark:block" />
-                    </button>
+                <button className="absolute right-6 top-6" onClick={() => setMenuOpen(false)}>
+                    <img src={darkImg} className="w-5 dark:hidden" />
+                    <img src={lightImg} className="w-5 hidden dark:block" />
+                </button>
 
-                </div>
-                {/* -- ----- mobile menu ------  -- */}
-                <ul ref={sideMenuRef} className="flex md:hidden flex-col gap-4 py-20 px-10 fixed -right-64 top-0 bottom-0 w-64 z-50 h-screen bg-rose-50 transition duration-500 font-Ovo dark:bg-darkHover dark:text-white">
+                <a href="#top" onClick={() => setMenuOpen(false)}>Home</a>
+                <a href="#about" onClick={() => setMenuOpen(false)}>About me</a>
+                <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
+                <a href="#work" onClick={() => setMenuOpen(false)}>My Work</a>
+                <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
 
-                    <div className="absolute right-6 top-6" onClick={closeMenu}>
-                        <img src={darkImg} alt="" className="w-5 cursor-pointer dark:hidden" />
-                        <img src={lightImg} alt="" className="w-5 cursor-pointer hidden dark:block" />
-                    </div>
+            </div>
 
-                    <li><a href="#top" onClick={closeMenu}>Home</a></li>
-                    <li><a href="#about" onClick={closeMenu}>About me</a></li>
-                    <li><a href="#services" onClick={closeMenu}>Services</a></li>
-                    <li><a href="#work" onClick={closeMenu}>My Work</a></li>
-                    <li><a href="#contact" onClick={closeMenu}>Contact me</a></li>
-                </ul>
-            </nav>
-        </>
-    )
+        </nav>
+    );
 }

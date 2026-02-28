@@ -4,7 +4,7 @@ export default function Header() {
   const [showPdf, setShowPdf] = useState(false);
 
   return (
-    <div className="w-11/12 max-w-3xl text-center mx-auto h-screen flex flex-col items-center justify-center gap-4">
+    <div className="w-11/12 max-w-3xl text-center mx-auto h-screen flex flex-col items-center justify-center gap-4 profile-section ">
       <img src={myImg} alt="" className="rounded-full w-32 h-32 mt-5" />
       <h3 className="flex items-end gap-2 text-xl md:text-2xl mb-3 font-Ovo">
         Hi! I&apos;m Ankul Verma

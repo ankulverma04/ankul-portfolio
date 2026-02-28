@@ -1,0 +1,45 @@
+.resume-section {
+  min-height: 100vh;
+  background: #f8f9fa;
+  display: flex;
+  justify-content: center;   /* Center horizontally */
+  align-items: center;       /* Center vertically */
+  padding: 40px 0;
+}
+
+.resume-container {
+  width: 100%;
+  max-width: 1000px;  /* Controls left-right spacing */
+  padding: 0 20px;
+}
+
+.resume-card {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.resume-name {
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.resume-title {
+  color: #6c757d;
+  font-size: 18px;
+}
+
+.resume-contact {
+  font-size: 14px;
+  color: #555;
+}
+
+.resume-card h5 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.resume-card ul {
+  padding-left: 18px;
+}

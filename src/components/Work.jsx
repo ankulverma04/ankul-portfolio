@@ -1,6 +1,6 @@
 import imgOne from "../assets/work-3.png";
 import imgTwo from "../assets/trading.webp";
-import imgThree from "../assets/openai.png";
+import imgThree from "../assets/LMS.jpg";
 import { useState } from "react";
 
 export default function Work() {
@@ -8,28 +8,30 @@ export default function Work() {
   const workData = [
     {
       id: 1,
-      name: "Frontend Project(Deploy in Progress   🚧)",
+      name: "Frontend Project(Portfolio)",
       icon: imgOne,
       description: "Web Design",
+      link: "https://ankul-portfolio.vercel.app/",
+    },
+    
+    {
+      id: 3,
+      name: "Zerodha Clone",
+      icon: imgTwo,
+      description: "Website",
+      link: "https://zerodha-frontend-fwjs.onrender.com",
+    },
+     {
+      id: 4,
+      name: "LMS (In Progress 🚧)",
+      icon:imgThree,
+      description: "Website",
       link: "",
     },
     {
       id: 2,
-      name: "OpenAi(Deploy in Progress   🚧)",
-      icon: imgThree,
-      description: "Website",
-      link: "",
-    },
-    {
-      id: 3,
-      name: "Zerodha Clone (in Progress   🚧)",
-      icon: imgTwo,
-      description: "Website",
-      link: "",
-    },
-     {
-      id: 4,
-      name: "Food Project (Next 🚧)",
+      name: "OpenAi(In Progress   🚧)",
+      // icon: imgThre,
       description: "Website",
       link: "",
     },
@@ -71,6 +73,7 @@ export default function Work() {
             key={item.id}
             className="aspect-square bg-no-repeat bg-cover bg-center rounded-lg relative cursor-pointer group overflow-hidden"
             style={{ backgroundImage: `url(${item.icon})` }}
+            onClick={() => item.link && window.open(item.link, "_blank")}
           >
 
             <div className="bg-white w-10/12 rounded-md absolute bottom-5 left-1/2 -translate-x-1/2 py-3 px-5 flex items-center justify-between duration-500 group-hover:bottom-7 shadow-md">

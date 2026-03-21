@@ -1,5 +1,6 @@
 import myImg from "../assets/MY.png";
 import { useState } from "react";
+import Resume from "../assets/MRESUME.pdf"
 export default function Header() {
   const [showPdf, setShowPdf] = useState(false);
 
@@ -42,11 +43,11 @@ export default function Header() {
           {showPdf && (
             <div className="mt-4 " style={{marginBottom:"400px"}}>
               <iframe
-                src="../../MRESUME.pdf"
-                width="210%"
+                src={Resume}
+                width="170%"
                 height="600px"
                 title="Resume PDF"
-              />
+              />/Users/ankulverma/MyPortfolio/src/assets/MRESUME.pdf
             </div>
           )}
         </div>

@@ -13,15 +13,20 @@ export default function Contact() {
 
     const form = event.currentTarget;
     const data = new FormData(form);
+    data.append("_replyto", data.get("email"));
+    data.append("_template", "table");
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/ankulvofficial@gmail.com", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-        },
-        body: data,
-      });
+      const response = await fetch(
+        "https://formsubmit.co/ajax/ankulvofficial@gmail.com",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+          },
+          body: data,
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to send");
 
@@ -37,8 +42,15 @@ export default function Contact() {
       <h4 className="text-center mb-2 text-lg font-Ovo">Connect with me</h4>
       <h2 className="text-center text-5xl font-Ovo">Get in touch</h2>
       <p className="text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo">
-        Have a project in mind or a question? Send a message and I&apos;ll get
-        back to you.
+        Have a project in mind or a question? Fill the form below. Your message
+        is sent to{" "}
+        <a
+          href="mailto:ankulvofficial@gmail.com"
+          className="underline underline-offset-4"
+        >
+          ankulvofficial@gmail.com
+        </a>
+        .
       </p>
 
       <form
@@ -81,7 +93,7 @@ export default function Contact() {
           </button>
           {status === "sent" && (
             <p className="mt-4 text-green-600 dark:text-green-400">
-              Message sent. Thank you!
+              Message sent to ankulvofficial@gmail.com. Thank you!
             </p>
           )}
           {status === "error" && (

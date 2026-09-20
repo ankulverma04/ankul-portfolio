@@ -2,17 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.profile-section{
-  padding-top: 70px;
+.profile-section {
+  padding-top: 88px;
 }
 
-@media (max-width: 480px){
-  .profile-section{
-    padding-top: 120px;
-  }
-}
-@media (max-width: 1025px){
-  .profile-section{
-    padding-top: 200px;
+@media (max-width: 480px) {
+  .profile-section {
+    padding-top: 96px;
   }
 }

@@ -1,8 +1,16 @@
 import imgOne from "../assets/work-3.png";
 import imgTwo from "../assets/trading.webp";
+import imgSigma from "../assets/sigmagpt.png";
 
 export default function Work() {
   const workData = [
+    {
+      id: 3,
+      name: "SigmaGPT",
+      icon: imgSigma,
+      description: "AI chat app · OpenAI, MERN, Vercel",
+      link: "https://sigma-gpt-omega.vercel.app/",
+    },
     {
       id: 1,
       name: "Zerodha Trading Platform Clone",
@@ -26,8 +34,8 @@ export default function Work() {
       <h2 className="text-center text-5xl font-Ovo">My Latest Work</h2>
 
       <p className="text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo">
-        Selected work from my resume: a full-stack trading dashboard clone and
-        this portfolio, built with React, Node.js, and Tailwind CSS.
+        Selected work including SigmaGPT, a Zerodha trading dashboard clone, and
+        this portfolio — built with React, Node.js, and Tailwind CSS.
       </p>
 
       <div className="grid grid-cols-auto my-10 gap-6 dark:text-black transition-all duration-500">
